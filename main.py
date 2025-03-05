@@ -16,30 +16,55 @@
 
 import json
 import time
+import requests
 
 
 MINUTE = 60
 HOUR = MINUTE * 60
 
 def get_date():
-	"""A method to query the current date"""
+	"""A function to query the current date"""
 	#TODO: Add location based time
 	return time.strftime("%a %B %d, %Y")
 
 def get_time():
-	"""A method to query the current time"""
+	"""A function to query the current time"""
 	#TODO: Add location based time
 	current_time = time.strftime("%I:%M %p")
 	return current_time
 	
-def current_forecast(longitude, latitude):
-	"""A method to query the hourly forecast"""
+def get_correct_station(longitude, latitude):
+	"""A function to get the correct weather station link for specific coordinate grids"""
+	
+	# Converts the floats into a string with 4 decimal places
+	longitude = str("{:.4f}".format(longitude))
+	latitude = str("{:.4f}".format(latitude))
+	
+	# Formats the URL for the specific coordinates
+	url = "https://api.weather.gov/points/" + longitude + "," + latitude
+	
+	response = requests.get(url, stream=True)
+	
+	with open("data.csv", 'wb') as file:
+    		for chunk in response.iter_content(chunk_size=8192):
+      			file.write(chunk)
+	
+	print(response)
+	
+	return True
+	
+def current_forecast(hourly_forecast_link):
+	"""A function to query the hourly forecast"""
 	
 	#TODO: Get NWS weather forecast
-	city_1_forecast = [[0.00], [0.00], [0.00], [0.00], [0.00], [0.00], [0.00]]
-	city_2_forecast = [[0.00], [0.00], [0.00], [0.00], [0.00], [0.00], [0.00]]
 	
-	projected_forecast = [city_1_forecast, city_2_forecast]
+	#sunrise = specific time
+	#sunset = specific time
+	#windspeed = specific time
+	
+	
+	
+	projected_forecast = [[0.00], [0.00], [0.00], [0.00], [0.00], [0.00], [0.00]]
 	return projected_forecast
 
 city_1 = {
@@ -53,6 +78,10 @@ city_2 = {
 	"Longitude": 000,
 	"Latitude": 000
 }
+
+
+# Grabs the weather forcast on start-up
+get_correct_station(39.7456, -97.0892)
 
 # Main loop of the program dealing with updating all information
 while True:
