@@ -16,7 +16,6 @@
 
 import json
 import time
-from datetime import date
 
 
 MINUTE = 60
@@ -24,19 +23,33 @@ HOUR = MINUTE * 60
 
 def get_date():
 	"""A method to query the current date"""
-	today = date.today()
-	return today.strftime("%B %d, %Y")
+	return time.strftime("%a %B %d, %Y")
 
 def get_time():
 	"""A method to query the current time"""
-	current_time = time.strftime("%H:%M")
+	current_time = time.strftime("%I:%M %p")
 	return current_time
 	
 def current_forecast(longitude, latitude):
 	"""A method to query the hourly forecast"""
-	projected_forecast = [[0.00], [0.00], [0.00], [0.00], [0.00], [0.00], [0.00]]
+	
+	city_1_forecast = [[0.00], [0.00], [0.00], [0.00], [0.00], [0.00], [0.00]]
+	city_2_forecast = [[0.00], [0.00], [0.00], [0.00], [0.00], [0.00], [0.00]]
+	
+	projected_forecast = [city_1_forecast, city_2_forecast]
 	return projected_forecast
 
+city_1 = {
+	"Name": "Atlanta",
+	"Longitude": 000,
+	"Latitude": 000
+}
+
+city_2 = {
+	"Name": "New York",
+	"Longitude": 000,
+	"Latitude": 000
+}
 
 # Main loop of the program dealing with updating all information
 while True:
