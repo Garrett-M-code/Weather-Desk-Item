@@ -1,5 +1,5 @@
 #    A program that displays weather data from NWS on a desk item.
-#    Copyright (C) <year>  <name of author>
+#    Copyright (C) 2025  Garrett Moore
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -23,16 +23,19 @@ HOUR = MINUTE * 60
 
 def get_date():
 	"""A method to query the current date"""
+	#TODO: Add location based time
 	return time.strftime("%a %B %d, %Y")
 
 def get_time():
 	"""A method to query the current time"""
+	#TODO: Add location based time
 	current_time = time.strftime("%I:%M %p")
 	return current_time
 	
 def current_forecast(longitude, latitude):
 	"""A method to query the hourly forecast"""
 	
+	#TODO: Get NWS weather forecast
 	city_1_forecast = [[0.00], [0.00], [0.00], [0.00], [0.00], [0.00], [0.00]]
 	city_2_forecast = [[0.00], [0.00], [0.00], [0.00], [0.00], [0.00], [0.00]]
 	
